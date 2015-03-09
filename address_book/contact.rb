@@ -84,16 +84,8 @@ class Contact
     end
   end
 
+  def search_contact
+        
+  end
+
 end
-
-jose = Contact.new
-jose.first_name = "José"
-jose.middle_name = "Ricardo"
-jose.last_name = "Rosado"
-jose.add_phone_number('Home', '809-555-5555')
-jose.add_phone_number('Work', '809-333-3333')
-jose.add_address('Home', '123 Street', '', 'Santo Domingo', 'D.N.', '00000')
-
-puts jose.to_s('full_name')
-jose.print_phone_numbers
-jose.print_addresses
