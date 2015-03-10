@@ -9,7 +9,7 @@ class AddressBook
   end
 
   def run
-    loop do 
+    loop do
       puts "Address Book"
       puts "A: add new contact"
       puts "S: search for contact"
@@ -69,7 +69,7 @@ class AddressBook
         print "Postal code: "
         address.postal_code = gets.chomp
         contact.addresses << address
-      else 
+      else
         print "\n"
         break
       end
@@ -134,12 +134,12 @@ class AddressBook
   end
 
   def print_results(msg, array)
-    puts msg 
+    puts msg
     array.each do |contact|
       puts contact.to_s('full_name')
-      contact.print_phone_numbers 
+      contact.print_phone_numbers
       contact.print_addresses
-      puts "\n" 
+      puts "\n"
     end
   end
 

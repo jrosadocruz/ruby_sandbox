@@ -6,7 +6,7 @@ class Contact
 
   def initialize
     @phone_numbers = []
-    @addresses = []  
+    @addresses = []
   end
 
   def add_phone_number(kind, number)
@@ -32,7 +32,7 @@ class Contact
   end
 
   def middle_name
-    @middle_name = middle_name 
+    @middle_name = middle_name
   end
 
   def last_name
@@ -85,7 +85,7 @@ class Contact
   end
 
   def search_contact
-        
+
   end
 
 end

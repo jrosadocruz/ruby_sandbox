@@ -7,3 +7,4 @@ class String
     Iconv.conv('ASCII//IGNORE', 'UTF8', self)
   end
 end
+

@@ -13,7 +13,7 @@ class Address
       address += " " + @street_2 unless @street_2.nil? || @street_2.empty?
       address += " " + @city + ", " + @state + ", " + @postal_code
     end
-    
+
   end
 
 end
