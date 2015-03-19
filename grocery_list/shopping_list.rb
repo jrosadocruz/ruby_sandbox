@@ -1,5 +1,11 @@
 require './item'
 
+class String
+  def is_number?
+    true if Float(self) rescue false
+  end
+end
+
 class ShoppingList
   attr_writer :lists
 
@@ -87,42 +93,38 @@ class List
   end
 
   def add_items
-    item = Item.new
-    item.quantity = nil
+    item     = Item.new
+    user_name_input = nil
 
     print "Item name: "
-    item.name = gets.chomp.strip
+    user_name_input = gets.chomp.strip
 
-    while item.name.nil? || item.name.empty?
+    while test_item(user_name_input)
       puts "Item name cannot be blank. Please enter item name."
       print "Item name: "
-      item.name = gets.chomp.strip
+      user_name_input = gets.chomp.strip
     end
 
-    print "Quantity: "
-    input = gets.chomp.strip
+    item.name = user_name_input
 
-    while input.nil? || input == ""
-      puts "Please enter quantity"
-      print "Quantity: "
-      input = gets.chomp.strip
 
-      while input.empty?
-        print "Please enter quantity: "
-        input = gets.chomp.strip.to_s
-      end
-    end
-
-    while input == "0"
-      puts "Are you sure you want 0 #{item.name}? y/n"
-      print "> "
-      user_quantity_input = gets.chomp.strip
-      if user_quantity_input == "y" ? input = 0 : input = gets.chomp.strip.to_i
-    end
-
-    item.quantity = input
+    # item.quantity = input
 
     @items << item
+  end
+
+  def test_item(item=nil)
+    return false if item.nil?
+
+    if item.class == Fixnum || item.to_s.is_number?
+      return "Item is 0" if item == 0
+      return true
+    end
+
+    if item.class == String
+      return "String is empty" if item.strip.empty?
+      return true
+    end
   end
 
 end
