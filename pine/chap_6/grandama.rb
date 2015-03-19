@@ -3,10 +3,9 @@ def grandma
 
   print "Say something to Grandma: "
   say = gets.chomp
-
   shout = say.upcase
 
-  while say
+  while true
     bye += 1 if say == "BYE"
     break if bye == 3
 
@@ -19,7 +18,6 @@ def grandma
       print "Say something to Grandma: "
       say = gets.chomp
     end
-
   end
 
   puts "\nGrandma says: BYE, SONNY!"
