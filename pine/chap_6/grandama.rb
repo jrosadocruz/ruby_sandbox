@@ -6,20 +6,20 @@ def grandma
 
   shout = say.upcase
 
-  while say == shout
-    if say == "BYE"
-      bye += 1
-    end
+  while say
+    bye += 1 if say == "BYE"
     break if bye == 3
-    puts "\nGrandma says: NO, NOT SINCE #{random_year}!"
-    print "Say something to Grandma: "
-    say = gets.chomp
-  end
 
-  while say != shout
-    puts "Grandma says: HUH! SPEAK UP, SONNY! \n\n"
-    print "Say something to Grandma: "
-    say = gets.chomp
+    if say != shout
+      puts "Grandma says: HUH! SPEAK UP, SONNY! \n\n"
+      print "Say something to Grandma: "
+      say = gets.chomp
+    elsif say == shout
+      puts "\nGrandma says: NO, NOT SINCE #{random_year}!"
+      print "Say something to Grandma: "
+      say = gets.chomp
+    end
+
   end
 
   puts "\nGrandma says: BYE, SONNY!"
