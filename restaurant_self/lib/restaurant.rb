@@ -18,13 +18,8 @@ class Restaurant
   end
 
   def self.create_file
-    # Create file if file doesn't exists
     File.open(@@filepath, 'w') unless file_exists?
-    return file_usable?
-  end
-
-  def self.saved_restaurant
-
+    file_usable?
   end
 
 end

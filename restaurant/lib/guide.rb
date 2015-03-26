@@ -2,6 +2,11 @@ require 'restaurant'
 
 class Guide
 
+  class Config
+    @@actions = ['list','find','add','quit']
+    def self.actions; @@actions; end
+  end
+
   def initialize(path=nil)
 
     # locate file
@@ -25,9 +30,41 @@ class Guide
     introduction
     # action loop
     #   What to do? (list, find, add, quit)
+    result = nil
+    until result == :quit
+      action = get_action
+      result = do_action(action)
+    end
     #   do action
     # repeat until user quits
     conclusion
+  end
+
+  def get_action
+    action = nil
+    # Keep asking for input until we get a valid action
+    until Guide::Config.actions.include?(action)
+      puts "Actions: " + Guide::Config.actions.join(", ") if action
+      print "> "
+      user_response = gets.chomp
+      action = user_response.downcase.strip
+    end
+    return action
+  end
+
+  def do_action(action)
+    case action
+    when 'list'
+      puts "listing..."
+    when 'find'
+      puts "finding..."
+    when 'add'
+      puts 'adding...'
+    when 'quit'
+      return :quit
+    else
+      puts "\nI don't understand that command. \n"
+    end
   end
 
   def introduction
@@ -36,7 +73,7 @@ class Guide
   end
 
   def conclusion
-    puts "\n <<< Goodbye and Bon Appettit! >>> \n\n\n"
+    puts "\n <<< Goodbye and Bon Appettit! >>> \n\n"
   end
 
 end
