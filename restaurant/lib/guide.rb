@@ -7,12 +7,12 @@ class Guide
     # locate file
     Restaurant.filepath = path
 
-    if Restaurant.file_exists?
-      puts "Found file"
+    if Restaurant.file_usable?
+      puts "Found restaurant file"
     elsif Restaurant.create_file
-      puts "Create file"
+      puts "Create restaurant file"
     else
-      puts "Exiting"
+      puts "Exiting program"
       exit!
     end
 
