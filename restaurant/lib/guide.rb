@@ -55,15 +55,27 @@ class Guide
   def do_action(action)
     case action
     when 'list'
-      puts "listing..."
+      list
     when 'find'
       puts "finding..."
     when 'add'
-      puts 'adding...'
+      add
     when 'quit'
       return :quit
     else
       puts "\nI don't understand that command. \n"
+    end
+  end
+
+  def add
+    puts "\nAdd a new restaurant\n\n".upcase
+
+    restaurant = Restaurant.build_from_questions
+
+    if restaurant.save
+      puts "\nRestaurant Added\n\n"
+    else
+      puts "\nSave Error: restaurant not added\n\n"
     end
   end
 

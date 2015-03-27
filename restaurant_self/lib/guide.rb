@@ -47,12 +47,31 @@ class Guide
     when 'buscar'
       puts "Buscando"
     when 'agregar'
-      puts "Saliendo"
+      # puts "Saliendo"
+      add
     when 'salir'
       return :quit
     else
       puts "No conozco esa acción"
     end
+  end
+
+  def add
+    restaurant = Restaurant.new
+
+    print "Restaurant name: "
+    restaurant.name    = gets.chomp.strip
+    print "Cuisine type: "
+    restaurant.cuisine = gets.chomp.strip
+    print "Average prince: "
+    restaurant.price   = gets.chomp.strip
+
+    if restaurant.save
+      puts "Restaurante agregado."
+    else
+      puts "Save Error: Nos se agregó el restaurante."
+    end
+
   end
 
 
