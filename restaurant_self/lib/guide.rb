@@ -43,7 +43,7 @@ class Guide
   def do_action(action)
     case action
     when 'listar'
-      puts "Listando..."
+      list
     when 'buscar'
       puts "Buscando"
     when 'agregar'
@@ -66,6 +66,13 @@ class Guide
       puts "Save Error: Nos se agregó el restaurante."
     end
 
+  end
+
+  def list
+    restaurants = Restaurant.saved_restaurants
+    restaurants.each do |r|
+      puts "#{r.name} | #{r.cuisine} | #{r.price}"
+    end
   end
 
 

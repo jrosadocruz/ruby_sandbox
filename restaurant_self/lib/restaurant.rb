@@ -23,6 +23,23 @@ class Restaurant
     file_usable?
   end
 
+  def self.saved_restaurants
+    restaurants = []
+    if file_usable?
+      file = File.new(@@filepath, 'r')
+      file.each_line do |line|
+        restaurants << Restaurant.new.import_line(line.chomp)
+      end
+    end
+    restaurants
+  end
+
+  def import_line(line)
+    restaurant = line.split("\t")
+    @name, @cuisine, @price = restaurant
+    self
+  end
+
   def self.build_from_questions
     args = {}
     print "Restaurant name: "
