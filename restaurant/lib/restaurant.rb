@@ -25,8 +25,29 @@ class Restaurant
     return file_usable?
   end
 
-  def self.saved_restaurant
+  def self.saved_restaurants
+    # read the restaurant file
+    restaurants = []
+    if file_usable?
+      file = File.new(@@filepath, 'r')
+      file.each_line do |line|
+        restaurants << Restaurant.new.import_line(line.chomp)
+      end
+      file.close
+    end
+    return restaurants
+  end
 
+  def import_line(line)
+    line_array = line.split("\t")
+
+    # this is the same as assigning array[0] to the first variable
+    # its just a shortcut for not assigning one by one
+    @name, @cuisine, @price = line_array
+
+    # Returns self because it need to return the instance from
+    # `Restaurant.new.import_line(line.chomp)`
+    return self
   end
 
   def self.build_from_questions

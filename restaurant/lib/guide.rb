@@ -67,6 +67,14 @@ class Guide
     end
   end
 
+  def list
+    puts "\nListing restaurants\n\n".upcase
+    restaurants = Restaurant.saved_restaurants
+    restaurants.each do |r|
+      puts r.name +  " | " + r.cuisine + " | " + r.price
+    end
+  end
+
   def add
     puts "\nAdd a new restaurant\n\n".upcase
 
