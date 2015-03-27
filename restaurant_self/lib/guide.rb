@@ -57,14 +57,8 @@ class Guide
   end
 
   def add
-    restaurant = Restaurant.new
 
-    print "Restaurant name: "
-    restaurant.name    = gets.chomp.strip
-    print "Cuisine type: "
-    restaurant.cuisine = gets.chomp.strip
-    print "Average prince: "
-    restaurant.price   = gets.chomp.strip
+    restaurant = Restaurant.build_from_questions
 
     if restaurant.save
       puts "Restaurante agregado."
