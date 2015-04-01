@@ -1,15 +1,12 @@
 def string_to_num(string)
-  alphabet  = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-  alphabet += ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-# nums     = [ 0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25]
-  array_of_characters = string.split('')
+  alphabet  = ("a".."z").to_a
+  alphabet += ("A".."Z").to_a
+  characters = string.split('')
   result = []
 
-  array_of_characters.each do |char|
-    # if char is letter of alphabet
+  characters.each do |char|
     if alphabet.include?(char.downcase)
       result << alphabet.index(char)
-    # just add the same thing
     else
       result << char
     end
@@ -19,39 +16,50 @@ def string_to_num(string)
 
 end
 
-# p string_to_num('joseZ!')
-
 def num_to_string(num_array)
-  alphabet  = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-  alphabet += ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+  alphabet  = ("a".."z").to_a
+  alphabet += ("A".."Z").to_a
   result = []
+
   num_array.each do |num|
-    if num.class != String && num.to_i < alphabet.length
+    if num.class != String && num < alphabet.length
       result << alphabet[num]
+    # Makes 'Z' convertion possible
+    # also makes posible the use of negative numbers
     elsif num.to_i >= alphabet.length
       result << alphabet[num - alphabet.length]
     else
       result << num
     end
   end
+
   result.join
+
 end
 
-# p num_to_string([51,52, "!"])
-
 def caesar_cipher(string, factor = 1)
+  time = Time.now
   array_of_chars = string_to_num(string)
-  add_factor = array_of_chars.map do |num|
-    if num.class != String
-      num += factor
+
+  adds_factor = array_of_chars.map do |char|
+    if char.class == Integer
+      char += factor
     else
-      num = num
+      char = char
     end
   end
 
-  result = num_to_string(add_factor)
-  p result
+  result = num_to_string(adds_factor)
+  end_time = Time.now
+  p end_time - time
+  result
 end
 
-caesar_cipher("JoseZ!!@", 1)
-caesar_cipher("Kptfa", -1)
+
+
+# caesar_cipher("abc",1)
+# caesar_cipher("JoseZ!!@", 68)
+# caesar_cipher("ZEIu!!@", -68)
+string = "Implement a caesar cipher That takes in a String and the shift factor and then outputs the modified string!! !! 12"
+cipher = p caesar_cipher(string, 5)
+p caesar_cipher(cipher, -5)
