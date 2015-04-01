@@ -24,27 +24,34 @@ end
 def num_to_string(num_array)
   alphabet  = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
   alphabet += ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-  result = ""
+  result = []
   num_array.each do |num|
-    if num.class != String && num < alphabet.length
-      result += alphabet[num]
-    elsif num >= alphabet.length
-      result += alphabet[num - alphabet.length]
+    if num.class != String && num.to_i < alphabet.length
+      result << alphabet[num]
+    elsif num.to_i >= alphabet.length
+      result << alphabet[num - alphabet.length]
     else
-      result += num.to_s
+      result << num
     end
   end
-  result
+  result.join
 end
 
-p num_to_string([51,52])
+# p num_to_string([51,52, "!"])
 
 def caesar_cipher(string, factor = 1)
   array_of_chars = string_to_num(string)
-  add_factor = array_of_chars.map { |num| num += factor }
+  add_factor = array_of_chars.map do |num|
+    if num.class != String
+      num += factor
+    else
+      num = num
+    end
+  end
+
   result = num_to_string(add_factor)
   p result
 end
 
-caesar_cipher("JoseZ", 1)
-# caesar_cipher("Kptf!", 1)
+caesar_cipher("JoseZ!!@", 1)
+caesar_cipher("Kptfa", -1)
