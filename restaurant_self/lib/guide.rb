@@ -1,38 +1,40 @@
 require 'restaurant'
 
 class Guide
-
-  @@actions = ['listar', 'buscar', 'agregar', 'salir']
+  @@filepath = nil
+  @@actions = ['list','add','find','quit']
 
   def initialize(path=nil)
     Restaurant.filepath = path
 
     if Restaurant.file_usable?
-      puts "Se encontró el archivo de restaurantes."
+      puts "Restaurant file loaded"
     elsif Restaurant.create_file
-      puts "Se creó el archivo de restaurantes."
+      puts "Restaurant file created"
     else
-      puts "Saliendo del sistema..."
+      puts "Exiting"
       exit!
     end
   end
 
   def launch!
     introduction
-    result = nil
+    retrieve_actions
+    conclusion
+  end
 
+  def retrieve_actions
+    result = nil
     until result == :quit
       action = get_action
       result = do_action(action)
     end
-
-    conclusion
   end
 
   def get_action
     action = nil
     until @@actions.include?(action)
-      puts "Acciones: " + @@actions.join(', ') if action
+      puts "Actions: " + @@actions.join(", ") if action
       print "> "
       user_input = gets.chomp
       action = user_input.downcase.strip
@@ -42,47 +44,54 @@ class Guide
 
   def do_action(action)
     case action
-    when 'listar'
+    when 'list'
       list
-    when 'buscar'
-      puts "Buscando"
-    when 'agregar'
-      # puts "Saliendo"
+    when 'add'
       add
-    when 'salir'
+    when 'find'
+      find
+    when 'quit'
       return :quit
     else
-      puts "No conozco esa acción"
+      puts "I don't know this command"
+    end
+  end
+
+  def list
+    puts "Listing restaurants"
+    restaurants = Restaurant.get_restaurants
+    p restaurants
+    print_restaurants(restaurants)
+  end
+
+  def print_restaurants(restaurants=[])
+    restaurants.each do |rest|
+      puts "#{rest.name}\t#{rest.cuisine}\t#{rest.price}"
     end
   end
 
   def add
-
+    puts "\nAdding a new Restaurant\n"
     restaurant = Restaurant.build_from_questions
-
     if restaurant.save
-      puts "Restaurante agregado."
+      puts "Restaurant has been added"
     else
-      puts "Save Error: Nos se agregó el restaurante."
-    end
-
-  end
-
-  def list
-    restaurants = Restaurant.saved_restaurants
-    restaurants.each do |r|
-      puts "#{r.name} | #{r.cuisine} | #{r.price}"
+      puts "Save error: restaurant could not be saved"
     end
   end
 
+  def find
+    puts "Find"
+  end
 
   def introduction
-    puts "\n\n <<< Bienvenido al Buscador de Restaurantes >>>"
-    puts  "Tu guía interactiva de restaurantes."
+    puts "<<< Welcome to the Restaurant Searcher >>>".center(60)
+    puts "an interactive guide to eating in great places".center(60)
   end
 
   def conclusion
-    puts "\n\n <<< Adiós y buen provecho>>> \n\n"
+    puts "\n\n"
+    puts "Bye, bye. Have a good one!".center(60)
   end
 
 end
